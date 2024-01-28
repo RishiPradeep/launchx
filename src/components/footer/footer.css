@@ -1,0 +1,7 @@
+.info-links {
+  transition: 0.5s;
+}
+
+.info-links:hover {
+  color: rgb(74 222 128 / 1);
+}
