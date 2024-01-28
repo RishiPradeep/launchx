@@ -1,0 +1,7 @@
+.links > li {
+  transition: 0.5s;
+}
+
+.links > li:hover {
+  color: rgb(74 222 128 / 1);
+}
