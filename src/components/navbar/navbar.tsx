@@ -1,23 +1,24 @@
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 import "./navbar.css";
 export default function Navbar() {
   return (
     <div className="flex justify-center fixed w-full">
       <div className="flex justify-between items-center max-w-[1028px] w-[800px] mx-auto bg-opacity-20 mb-4 backdrop-blur-lg bg-white shadow-lg bg-inherit text-white h-16 translate-y-4 p-4 rounded-full">
-        <a href="#">
+        <Link to={"/"}>
           <h1 className="text-4xl font-extrabold text-green-400 pl-4">
             Orbitify.
           </h1>
-        </a>
+        </Link>
         <ul className="links flex justify-around items-center gap-4 pr-4">
           <li>
-            <a href="">Launches</a>
+            <Link to={"/launches"}>Launches</Link>
           </li>
           <li>
-            <a href="">Astronauts</a>
+            <Link to={"/launches"}>Astronauts</Link>
           </li>
           <li>
-            <a href="">Contact</a>
+            <Link to={"/launches"}>Contact</Link>
           </li>
           <li>
             <Button className="text-green-400" variant={"secondary"}>
