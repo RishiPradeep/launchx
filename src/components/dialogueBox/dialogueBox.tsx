@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export function Dialogbox() {
   const [search, Setsearch] = useState("");
@@ -37,6 +38,7 @@ export function Dialogbox() {
         SetsearchLaunches(data.results);
         Setnext(data.next);
         Setloading(false);
+        console.log(searchLaunches);
       }
     } catch (error) {
       console.log(error);
@@ -94,14 +96,18 @@ export function Dialogbox() {
           </div>
           <div className="text-white flex-col max-h-[300px] overflow-y-scroll divide-y-2 divide-slate-400 divide-opacity-50 ">
             {searchLaunches.map((item: any, index: number) => {
+              console.log(item);
               return (
                 <div className="py-4" key={index}>
-                  <a className="flex items-center gap-4" href="/craft">
+                  <Link
+                    className="flex items-center gap-4"
+                    to={`/launches/${item.id}`}
+                  >
                     <div>{item.name} </div>
                     <span className="text-green-400">
                       <FaExternalLinkAlt size={15} />
                     </span>
-                  </a>
+                  </Link>
                 </div>
               );
             })}

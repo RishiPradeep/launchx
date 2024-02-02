@@ -15,10 +15,10 @@ export default function Navbar() {
             <Link to={"/launches"}>Launches</Link>
           </li>
           <li>
-            <Link to={"/launches"}>Astronauts</Link>
+            <Link to={"/astronauts"}>Astronauts</Link>
           </li>
           <li>
-            <Link to={"/launches"}>Contact</Link>
+            <Link to={"/contact"}>Contact</Link>
           </li>
           <li>
             <Button className="text-green-400" variant={"secondary"}>

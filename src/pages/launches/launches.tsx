@@ -5,7 +5,7 @@ import { Dialogbox } from "@/components/dialogueBox/dialogueBox";
 import LaunchCard from "@/components/launchCard/launchCard";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { Divide } from "lucide-react";
+
 export default function Launches() {
   const [loading, Setloading] = useState(false);
   const [next, Setnext] = useState("");
@@ -16,15 +16,25 @@ export default function Launches() {
     const getLaunches = async () => {
       try {
         Setloading(true);
+        if (sessionStorage.getItem("launches")) {
+          Setlaunches(JSON.parse(sessionStorage.getItem("launches")!));
+          Setnext(sessionStorage.getItem("next")!);
+          Setloading(false);
+          return;
+        }
         const response = await fetch(
-          "https://lldev.thespacedevs.com/2.2.0/launch/?limit=50"
+          "https://lldev.thespacedevs.com/2.2.0/launch/previous/  ?limit=10&ordering=-net"
         );
+        // FOR PROD https://ll.thespacedevs.com/2.2.0/launch/?year=2023,2022,2021
         const data = await response.json();
-        Setloading(false);
         Setlaunches(data.results);
         Setnext(data.next);
+        sessionStorage.setItem("launches", JSON.stringify(data.results));
+        sessionStorage.setItem("next", data.next);
+        Setloading(false);
       } catch (error) {
         console.log(error);
+        Setloading(false);
       }
     };
     getLaunches();
@@ -35,7 +45,10 @@ export default function Launches() {
       SetloadingMore(true);
       const response = await fetch(next);
       const data = await response.json();
+      Setnext(data.next);
+      sessionStorage.setItem("next", data.next);
       Setlaunches([...launches, ...data.results]);
+      sessionStorage.setItem("launches", JSON.stringify(launches));
       SetloadingMore(false);
     } catch (error) {
       console.log(error);
@@ -68,13 +81,15 @@ export default function Launches() {
             ))}
           </div>
         )}
-        <div className="flex justify-center py-4">
-          {loadingMore ? (
-            <div className="text-white text-lg">Loading...</div>
-          ) : (
-            <Button onClick={getNextData}>Load More ...</Button>
-          )}
-        </div>
+        {loading ? null : (
+          <div className="flex justify-center py-4">
+            {loadingMore ? (
+              <div className="text-white text-lg">Loading...</div>
+            ) : (
+              <Button onClick={getNextData}>Load More ...</Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
